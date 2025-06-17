@@ -2,6 +2,10 @@
 
 ## Setup
 ```bash
+# Clone Repo
+git clone https://github.com/hasnawi-labs/techbros-raspi-dht22
+cd techbros-raspi-dht22
+
 # Install Python virtual environment
 sudo apt-get update
 sudo apt-get install python3-venv
