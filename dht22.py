@@ -1,19 +1,32 @@
 import time
-import Adafruit_DHT
+import adafruit_dht
+import board
 from colorama import init, Fore, Style
 
 # Initialize colorama
 init()
 
-SENSOR = Adafruit_DHT.AM2302  # or Adafruit_DHT.DHT22
-SENSOR_PIN = 12  # BCM pin number (GPIO12)
+dht_device = adafruit_dht.DHT22(board.D17)  # GPIO17 (BCM) -> board.D17
 
 while True:
-    humidity, temperature = Adafruit_DHT.read_retry(SENSOR, SENSOR_PIN)
+    try:
+        temperature = dht_device.temperature
+        humidity = dht_device.humidity
 
-    if humidity is not None and temperature is not None:
-        print(f"{Fore.CYAN}Temperature: {Fore.YELLOW}{round(temperature, 2)} °C{Style.RESET_ALL}\t{Fore.GREEN}Humidity: {Fore.YELLOW}{round(humidity, 2)} %{Style.RESET_ALL}", end='\r')
-    else:
-        print(f"{Fore.RED}Sensor read failed. Retrying...{Style.RESET_ALL}", end='\r')
+        print(
+            f"{Fore.CYAN}Temperature: {Fore.YELLOW}{round(temperature, 2)} °C{Style.RESET_ALL}\t"
+            f"{Fore.GREEN}Humidity: {Fore.YELLOW}{round(humidity, 2)} %{Style.RESET_ALL}",
+            end="\r",
+        )
 
-    time.sleep(1)
+    except RuntimeError as e:
+        print(
+            f"{Fore.RED}Sensor read failed: {e}. Retrying...{Style.RESET_ALL}", end="\r"
+        )
+    except Exception as e:
+        print(
+            f"{Fore.RED}Unexpected error: {e}. Retrying...{Style.RESET_ALL}", end="\r"
+        )
+        time.sleep(2.0)
+
+    time.sleep(1.0)
