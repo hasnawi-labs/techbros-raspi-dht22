@@ -13,20 +13,18 @@ while True:
         temperature = dht_device.temperature
         humidity = dht_device.humidity
 
-        print(
+        output = (
             f"{Fore.CYAN}Temperature: {Fore.YELLOW}{round(temperature, 4)} °C{Style.RESET_ALL}\t"
-            f"{Fore.GREEN}Humidity: {Fore.YELLOW}{round(humidity, 4)} %{Style.RESET_ALL}",
-            end="\r",
+            f"{Fore.GREEN}Humidity: {Fore.YELLOW}{round(humidity, 4)} %{Style.RESET_ALL}"
         )
+        print(f"\r{output}{' ' * 20}", end="")  # Pad with spaces to clear line
 
     except RuntimeError as e:
-        print(
-            f"{Fore.RED}Sensor read failed: {e}. Retrying...{Style.RESET_ALL}", end="\r"
-        )
+        msg = f"{Fore.RED}Sensor read failed: {e}. Retrying...{Style.RESET_ALL}"
+        print(f"\r{msg}{' ' * 20}", end="")  # Pad with spaces to clear line
     except Exception as e:
-        print(
-            f"{Fore.RED}Unexpected error: {e}. Retrying...{Style.RESET_ALL}", end="\r"
-        )
+        msg = f"{Fore.RED}Unexpected error: {e}. Retrying...{Style.RESET_ALL}"
+        print(f"\r{msg}{' ' * 20}", end="")  # Pad with spaces to clear line
         time.sleep(2.0)
 
     time.sleep(1.0)  # Wait for 1 second before the next read
