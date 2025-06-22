@@ -14,8 +14,8 @@ while True:
         humidity = dht_device.humidity
 
         print(
-            f"{Fore.CYAN}Temperature: {Fore.YELLOW}{round(temperature, 2)} °C{Style.RESET_ALL}\t"
-            f"{Fore.GREEN}Humidity: {Fore.YELLOW}{round(humidity, 2)} %{Style.RESET_ALL}",
+            f"{Fore.CYAN}Temperature: {Fore.YELLOW}{round(temperature, 4)} °C{Style.RESET_ALL}\t"
+            f"{Fore.GREEN}Humidity: {Fore.YELLOW}{round(humidity, 4)} %{Style.RESET_ALL}",
             end="\r",
         )
 
@@ -29,4 +29,4 @@ while True:
         )
         time.sleep(2.0)
 
-    time.sleep(1.0)
+    time.sleep(1.0)  # Wait for 1 second before the next read
