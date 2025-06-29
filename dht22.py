@@ -12,11 +12,10 @@ while True:
     try:
         temperature = dht_device.temperature
         humidity = dht_device.humidity
-        with open("reading.txt", "w") as file:
+        with open("reading.txt", "a") as file:
             file.write(f"\ntemperature:._.{temperature}℃")
             file.write(f"\nhumidity:._.{humidity}%")
 
-        print("Text successfully written to 'reading.txt'.")
         output = (
             f"{Fore.CYAN}Temperature: {Fore.YELLOW}{round(temperature, 4)} °C{Style.RESET_ALL}\t"
             f"{Fore.GREEN}Humidity: {Fore.YELLOW}{round(humidity, 4)} %{Style.RESET_ALL}"
